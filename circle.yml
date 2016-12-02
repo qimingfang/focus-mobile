@@ -1,0 +1,12 @@
+machine:
+  timezone: America/Los_Angeles
+  xcode:
+    version: "8.1"
+
+dependencies:
+  override:
+    - npm install
+
+test:
+  override:
+    - echo "No Tests"
