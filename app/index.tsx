@@ -4,13 +4,23 @@ import React, { Component } from 'react'
 import {
     StyleSheet,
     Text,
-    View
+    View,
+    NavigationExperimental
 } from 'react-native'
 
 import PushNotification from 'react-native-push-notification'
 import { Provider, connect } from 'react-redux'
 
+import Home from './views/Home'
+import Schedule from './views/Schedule'
+
 import store from './store'
+
+const {
+  Button,
+} = require('./components')
+
+const {Navigation} = require('react-native-navigation')
 
 PushNotification.configure({
   // (optional) Called when Token is generated (iOS and Android)
@@ -54,29 +64,19 @@ interface State {
 
 }
 
-class App extends React.Component<Props, State> {
-  render () {
-    return <View style={styles.container}>
-      <Text style={styles.text}>
-        Welcome to React Native!
-      </Text>
-    </View>
-  }
-}
+Navigation.registerComponent('HOME', () => Home, store, Provider);
+Navigation.registerComponent('SCHEDULE', () => Schedule, store, Provider);
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    } as React.ViewStyle,
-
-    text: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-    } as React.TextStyle,
-});
-
-export default App
+Navigation.startSingleScreenApp({
+ screen: {
+   screen: 'HOME',
+   title: 'Navigation',
+   navigatorStyle: {
+     navBarBackgroundColor: '#4dbce9',
+     navBarTextColor: '#ffff00',
+     navBarSubtitleTextColor: '#ff0000',
+     navBarButtonColor: '#ffffff',
+     statusBarTextColorScheme: 'light'
+   }
+ }
+})
