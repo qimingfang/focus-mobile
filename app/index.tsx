@@ -1,23 +1,25 @@
-import React from 'react'
+// app/index.ts
+
+import React, { Component } from 'react'
 import {
-  View
-} from './components'
+    StyleSheet,
+    Text,
+    View
+} from 'react-native'
+
 import PushNotification from 'react-native-push-notification'
 import { Provider, connect } from 'react-redux'
 
 import store from './store'
 
-import Schedule from './views/Schedule'
-import Rate from './views/Rate'
-
 PushNotification.configure({
   // (optional) Called when Token is generated (iOS and Android)
-  onRegister: function (token) {
+  onRegister: function (token: string) {
     console.log('TOKEN:', token)
   },
 
   // (required) Called when a remote or local notification is opened or received
-  onNotification: function (notification) {
+  onNotification: function (notification: string) {
     console.log('NOTIFICATION:', notification)
   },
 
@@ -44,47 +46,37 @@ PushNotification.configure({
   requestPermissions: true
 })
 
-class Navigator extends React.Component {
+interface Props {
+
+}
+
+interface State {
+
+}
+
+class App extends React.Component<Props, State> {
   render () {
-    const { viewStack, children } = this.props
-
-    return (
-      <View style={{ flex: 1 }}>
-        {React.Children.map(children, Child => {
-          console.log(Child)
-          return viewStack[0] === Child.type.__name
-            ? React.cloneElement(Child, {key: Child.type.name})
-            : null
-        })}
-      </View>
-    )
+    return <View style={styles.container}>
+      <Text style={styles.text}>
+        Welcome to React Native!
+      </Text>
+    </View>
   }
 }
 
-Navigator.propTypes = {
-  viewStack: React.PropTypes.array.isRequired,
-  children: React.PropTypes.array.isRequired
-}
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5FCFF',
+    } as React.ViewStyle,
 
-const Nav = connect(state => {
-  return {
-    viewStack: state.navigation.viewStack
-  }
-}, {})(Navigator)
+    text: {
+        fontSize: 20,
+        textAlign: 'center',
+        margin: 10,
+    } as React.TextStyle,
+});
 
-class Main extends React.Component {
-  render () {
-    return (
-      <Provider store={store}>
-        <View style={{flex: 1}}>
-          <Nav>
-            <Schedule />
-            <Rate />
-          </Nav>
-        </View>
-      </Provider>
-    )
-  }
-}
-
-export default Main
+export default App

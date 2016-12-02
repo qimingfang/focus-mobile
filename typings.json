@@ -1,0 +1,10 @@
+{
+  "globalDependencies": {
+    "react": "registry:dt/react#0.14.0+20161124131900",
+    "react-native": "registry:dt/react-native#0.34.0+20161025173646",
+    "react-native-push-notification": "file:types/react-native-push-notification.d.ts"
+  },
+  "dependencies": {
+    "react-redux": "registry:npm/react-redux#4.4.0+20160614222153"
+  }
+}
