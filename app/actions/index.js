@@ -1,19 +1,5 @@
-export function changeView (name) {
-  return {
-    type: 'CHANGE_VIEW',
-    payload: { view: name }
-  }
-}
+import * as user from './user'
 
-export function push (route) {
-  return {
-    type: 'PUSH_ROUTE',
-    payload: route,
-  }
-}
-
-export function pop () {
-  return {
-    type: 'POP_ROUTE',
-  }
+export default {
+  user
 }

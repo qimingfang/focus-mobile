@@ -8,6 +8,10 @@ import {
     NavigationExperimental
 } from 'react-native'
 
+import RNAccountKit, {
+  Color
+} from 'react-native-facebook-account-kit'
+
 import PushNotification from 'react-native-push-notification'
 import { Provider, connect } from 'react-redux'
 
@@ -21,6 +25,38 @@ const {
 } = require('./components')
 
 const {Navigation} = require('react-native-navigation')
+
+RNAccountKit.configure({
+  theme: {
+    // Background
+    backgroundColor: Color.hex('#ffffff'),
+    
+    // Button
+    buttonBackgroundColor: Color.hex('#0A7040'),
+    buttonBorderColor: Color.hex('#0A7040'),
+    buttonTextColor: Color.hex('#ffffff'),
+ 
+    // Button disabled
+    buttonDisabledBackgroundColor: Color.hex('#0B421A'),
+    buttonDisabledBorderColor: Color.hex('#0B421A'),
+    buttonDisabledTextColor: Color.hex('#ffffff'),
+  
+    // Header
+    headerBackgroundColor: Color.hex('#0A7040'),
+    headerButtonTextColor: Color.hex('#ffffff'),
+    headerTextColor: Color.hex('#ffffff'),
+ 
+    // Input
+    inputBackgroundColor: Color.hex('#ffffff'),
+    inputBorderColor: Color.hex('#0A7040'),
+    inputTextColor: Color.hex('#263238'),
+ 
+    // Others
+    iconColor: Color.hex('#0A7040'),
+    textColor: Color.hex('#263238'),
+    titleColor: Color.hex('#ffffff')
+  }
+})
 
 PushNotification.configure({
   // (optional) Called when Token is generated (iOS and Android)

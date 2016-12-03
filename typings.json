@@ -2,6 +2,7 @@
   "globalDependencies": {
     "react": "registry:dt/react#0.14.0+20161124131900",
     "react-native": "registry:dt/react-native#0.34.0+20161025173646",
+    "react-native-facebook-account-kit": "file:types/react-native-facebook-account-kit.d.ts",
     "react-native-navigation": "file:types/react-native-navigation.d.ts",
     "react-native-push-notification": "file:types/react-native-push-notification.d.ts"
   },
