@@ -28,6 +28,7 @@ const {height} = Dimensions.get('window')
 
 interface Props {
   fields?: any
+  scheduleAfternoonNotfication?: (goal: string) => any
 }
 
 interface State {
@@ -41,38 +42,6 @@ class Goal extends React.Component<Props, State> {
     this.state = {
       inputHeight: 40
     }
-  }
-
-  scheduleNotification (goal: string) {
-    PushNotification.cancelLocalNotifications({ id: 'MY_NOTIFICATION' })
-    PushNotification.cancelAllLocalNotifications()
-
-    const now = moment()
-
-    // schedule for 8pm today
-    const reminderTime = now.set({
-      hour: 20,
-      minute: 0,
-      second: 0,
-      millisecond: 0
-    })
-
-    this._set(GOAL_KEY, JSON.stringify({ goal })).then(() => {
-      PushNotification.localNotificationSchedule({
-        message: "How did you do on your goals today?",
-        date: reminderTime.toDate(),
-        userInfo: { id: 'MY_NOTIFICATION' }
-      })
-    })
-  }
-
-  _set (key: string, value: any): Promise<any> {
-    return new Promise((resolve, reject) => {
-      return AsyncStorage.setItem(key, value, (err) => {
-        if (err) return reject(err)
-        return resolve()
-      })
-    })
   }
 
   render () {
@@ -119,7 +88,7 @@ class Goal extends React.Component<Props, State> {
               backgroundColor: theme.primaryDark,
               marginBottom: 16
             }]}
-            onPress={() => { this.scheduleNotification(goal.value) }}
+            onPress={() => { this.props.scheduleAfternoonNotfication(goal.value) }}
           >
             <Text style={{
               color: theme.white,
@@ -139,6 +108,6 @@ export default reduxForm(
   }, 
   state => ({}),
   {
-    login: actions.user.login
+    scheduleAfternoonNotfication: actions.user.scheduleAfternoonNotfication
   } 
 )(Goal)
