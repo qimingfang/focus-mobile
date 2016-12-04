@@ -36,10 +36,6 @@ class Login extends React.Component<Props, State> {
     navBarHidden: true
   }
 
-  onLogin () {
-    this.props.navigator.push(Router.getRoute('HOME'))
-  }
-
   render () {
     return (
       <View style={{ flex: 1, backgroundColor: theme.primaryColor }}>
@@ -60,7 +56,7 @@ class Login extends React.Component<Props, State> {
         </View>
         <View style={{ flex: 1 }} />
         <TouchableOpacity
-          onPress={() => this.onLogin()}
+          onPress={this.props.login}
           style={{
             alignItems: 'center',
             justifyContent: 'center',

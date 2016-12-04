@@ -15,6 +15,7 @@ export function login (): UserAction {
       // TODO: handle when there is no token
       if (token) {
         return set(TOKEN_KEY, JSON.stringify(token))
+          .then(() => pushRoute('LOADING'))
       }
     })
 

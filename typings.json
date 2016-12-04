@@ -4,7 +4,9 @@
     "react-native": "registry:dt/react-native#0.34.0+20161025173646",
     "react-native-facebook-account-kit": "file:types/react-native-facebook-account-kit.d.ts",
     "react-native-navigation": "file:types/react-native-navigation.d.ts",
-    "react-native-push-notification": "file:types/react-native-push-notification.d.ts"
+    "react-native-push-notification": "file:types/react-native-push-notification.d.ts",
+    "redux": "registry:dt/redux#3.5.2+20160703092728",
+    "redux-form": "registry:dt/redux-form#4.0.3+20160907012813"
   },
   "dependencies": {
     "react-redux": "registry:npm/react-redux#4.4.0+20160614222153"
