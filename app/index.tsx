@@ -1,34 +1,17 @@
 // app/index.ts
 
-import React, { Component } from 'react'
-import {
-  AsyncStorage,
-  StyleSheet,
-  Text,
-  View,
-  NavigationExperimental
-} from 'react-native'
-
 import RNAccountKit, {
   Color
 } from 'react-native-facebook-account-kit'
 
-import {TOKEN_KEY} from './constants'
 import PushNotification from 'react-native-push-notification'
 import { Provider, connect } from 'react-redux'
 
-import Login from './views/Login'
-import Home from './views/Home'
-import Settings from './views/Settings'
-
-import store from './store'
-import {redirectToHome, redirectToLogin} from './navigation/index'
+import Navigator from './navigator'
 
 const {
   Button,
 } = require('./components')
-
-const {Navigation} = require('react-native-navigation')
 
 RNAccountKit.configure({
   theme: {
@@ -104,14 +87,4 @@ interface State {
 
 }
 
-Navigation.registerComponent('HOME', () => Home, store, Provider)
-Navigation.registerComponent('SETTINGS', () => Settings, store, Provider)
-Navigation.registerComponent('LOGIN', () => Login, store, Provider)
-
-AsyncStorage.getItem(TOKEN_KEY).then(val => {
-  if (!val) {
-    redirectToLogin()
-  } else {
-    redirectToHome()
-  }
-})
+export default Navigator

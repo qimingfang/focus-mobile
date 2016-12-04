@@ -25,7 +25,6 @@
 		34B340F216F249F280F6D066 /* libRNAccountKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A9B94D64CCD4938BCA2D378 /* libRNAccountKit.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		F96096471DE5771100233DF7 /* libRCTPushNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F96096441DE576E300233DF7 /* libRCTPushNotification.a */; };
-		F984B4061DF169B2008F117A /* libReactNativeNavigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F984B4051DF1699A008F117A /* libReactNativeNavigation.a */; };
 		F9C17BDC1DF375BB00836FC2 /* AccountKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9C17BDA1DF375BB00836FC2 /* AccountKit.framework */; };
 		F9C17BDD1DF375BB00836FC2 /* AccountKitStrings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F9C17BDB1DF375BB00836FC2 /* AccountKitStrings.bundle */; };
 /* End PBXBuildFile section */
@@ -171,13 +170,6 @@
 			remoteGlobalIDString = 2DD0EFE61DA8533A00B0C975;
 			remoteInfo = "RCTPushNotification-tvOS";
 		};
-		F984B4041DF1699A008F117A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F984B3ED1DF1699A008F117A /* ReactNativeNavigation.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D8AFADBD1BEE6F3F00A4592D;
-			remoteInfo = ReactNativeNavigation;
-		};
 		F9C17BD41DF33BE200836FC2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E01471D007BD41739B999CD0 /* RNAccountKit.xcodeproj */;
@@ -212,7 +204,6 @@
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		E01471D007BD41739B999CD0 /* RNAccountKit.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNAccountKit.xcodeproj; path = "../node_modules/react-native-facebook-account-kit/ios/RNAccountKit.xcodeproj"; sourceTree = "<group>"; };
 		F960963E1DE576E300233DF7 /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "/Users/qiming/Documents/js/focus/node_modules/react-native/Libraries/WebSocket/../PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<absolute>"; };
-		F984B3ED1DF1699A008F117A /* ReactNativeNavigation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeNavigation.xcodeproj; path = "/Users/qiming/Documents/js/focus/node_modules/react-native/Libraries/PushNotificationIOS/../../../react-native-navigation/ios/ReactNativeNavigation.xcodeproj"; sourceTree = "<absolute>"; };
 		F9C17BDA1DF375BB00836FC2 /* AccountKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AccountKit.framework; sourceTree = "<group>"; };
 		F9C17BDB1DF375BB00836FC2 /* AccountKitStrings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AccountKitStrings.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -242,7 +233,6 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				F96096471DE5771100233DF7 /* libRCTPushNotification.a in Frameworks */,
-				F984B4061DF169B2008F117A /* libReactNativeNavigation.a in Frameworks */,
 				34B340F216F249F280F6D066 /* libRNAccountKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -374,7 +364,6 @@
 				832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */,
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
-				F984B3ED1DF1699A008F117A /* ReactNativeNavigation.xcodeproj */,
 				F960963E1DE576E300233DF7 /* RCTPushNotification.xcodeproj */,
 				E01471D007BD41739B999CD0 /* RNAccountKit.xcodeproj */,
 			);
@@ -416,14 +405,6 @@
 			children = (
 				F96096441DE576E300233DF7 /* libRCTPushNotification.a */,
 				F96096461DE576E300233DF7 /* libRCTPushNotification-tvOS.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		F984B3EE1DF1699A008F117A /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				F984B4051DF1699A008F117A /* libReactNativeNavigation.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -549,10 +530,6 @@
 				{
 					ProductGroup = 146834001AC3E56700842450 /* Products */;
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
-				},
-				{
-					ProductGroup = F984B3EE1DF1699A008F117A /* Products */;
-					ProjectRef = F984B3ED1DF1699A008F117A /* ReactNativeNavigation.xcodeproj */;
 				},
 				{
 					ProductGroup = F9C17BBD1DF33BE200836FC2 /* Products */;
@@ -701,13 +678,6 @@
 			remoteRef = F96096451DE576E300233DF7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		F984B4051DF1699A008F117A /* libReactNativeNavigation.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libReactNativeNavigation.a;
-			remoteRef = F984B4041DF1699A008F117A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		F9C17BD51DF33BE200836FC2 /* libRNAccountKit.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -851,7 +821,6 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
-					"$(SRCROOT)/../node_modules/react-native-navigation/ios",
 					"$(SRCROOT)/../node_modules/react-native-facebook-account-kit/ios/**",
 				);
 				INFOPLIST_FILE = focus/Info.plist;
@@ -882,7 +851,6 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
-					"$(SRCROOT)/../node_modules/react-native-navigation/ios",
 					"$(SRCROOT)/../node_modules/react-native-facebook-account-kit/ios/**",
 				);
 				INFOPLIST_FILE = focus/Info.plist;

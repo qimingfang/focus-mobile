@@ -16,8 +16,7 @@ const {
 } = require('../components')
 
 interface Props {
-  navigator: any,
-  logout: () => void
+  logout?: () => void
 }
 
 interface State {
@@ -25,11 +24,6 @@ interface State {
 }
 
 class Settings extends React.Component<Props, State> {
-  static navigatorStyle = {
-    statusBarTextColorScheme: 'light',
-    navBarHidden: true
-  }
-
   render () {
     return (
       <View style={{ flex: 1, backgroundColor: theme.primaryColor, paddingHorizontal: 12 }}>

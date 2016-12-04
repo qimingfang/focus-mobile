@@ -2,10 +2,13 @@ import React, {Component} from 'react'
 import {
   View,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  Dimensions
 } from 'react-native'
+
 import {connect} from 'react-redux'
 
+import {Router} from '../navigator'
 import actions from '../actions/index'
 
 const {
@@ -16,9 +19,11 @@ const {
   theme
 } = require('../components')
 
+const {width, height} = Dimensions.get('window')
+
 interface Props {
   navigator: any,
-  login: any,
+  login?: any,
 }
 
 interface State {
@@ -31,18 +36,31 @@ class Login extends React.Component<Props, State> {
     navBarHidden: true
   }
 
+  onLogin () {
+    this.props.navigator.push(Router.getRoute('HOME'))
+  }
+
   render () {
     return (
       <View style={{ flex: 1, backgroundColor: theme.primaryColor }}>
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <View style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width,
+          height,
+          alignItems: 'center',
+          justifyContent: 'center'
+         }}>
           <Image
             source={require('../../images/logo.png')} />
             <Text style={{ marginTop: 16, fontSize: 48, color: theme.white }}>
               Focus
             </Text>
         </View>
+        <View style={{ flex: 1 }} />
         <TouchableOpacity
-          onPress={this.props.login}
+          onPress={() => this.onLogin()}
           style={{
             alignItems: 'center',
             justifyContent: 'center',
@@ -55,7 +73,7 @@ class Login extends React.Component<Props, State> {
           }}>
           <Text style={{
             color: theme.white,
-            fontSize: 24
+            fontSize: 20
           }}>Log in with phone</Text>
         </TouchableOpacity>
       </View>

@@ -1,4 +1,5 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux'
+import {createNavigationEnabledStore} from '@exponent/ex-navigation'
 
 import reducers from './reducers'
 
@@ -7,5 +8,10 @@ const logger = store => next => action => {
   return next(action)
 }
 
+const createStoreWithNavigation = createNavigationEnabledStore({
+  createStore,
+  navigationStateKey: 'navigation',
+})
+
 const rootReducer = combineReducers(reducers)
-export default createStore(rootReducer, {}, applyMiddleware(logger))
+export default createStoreWithNavigation(rootReducer, {}, applyMiddleware(logger))

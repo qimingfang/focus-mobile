@@ -1,11 +1,19 @@
 import React, {Component} from 'react'
 import {
   View,
+  Image,
   TouchableOpacity
 } from 'react-native'
 import {connect} from 'react-redux'
 
 import actions from '../actions/index'
+import Goal from './Goal'
+import Settings from './Settings'
+
+const {
+  TabNavigation,
+  TabNavigationItem
+} = require('@exponent/ex-navigation')
 
 const {
   Text,
@@ -17,11 +25,10 @@ const {
 
 interface Props {
   navigator: any,
-  login: any,
 }
 
 interface State {
-  
+  selectedTab: string
 }
 
 class Home extends React.Component<Props, State> {
@@ -30,13 +37,40 @@ class Home extends React.Component<Props, State> {
     statusBarTextColorScheme: 'light'
   }
 
+  constructor (props: any) {
+    super(props)
+
+    this.state = {
+      selectedTab: 'HOME'
+    }
+  }
+
   render () {
     return (
-      <View style={{ flex: 1, backgroundColor: theme.primaryColor }}>
-        <Container>
-          <HeaderBar>What is your goal for today?</HeaderBar>
-        </Container>
-       </View>
+      <TabNavigation
+        id="tab"
+        navigatorUID="tab"
+        initialTab="goal">
+        <TabNavigationItem
+          id="goal"
+          renderIcon={(isSelected: boolean) =>
+            <Image source={require('../../images/ic-goals.png')} 
+              style={isSelected ? { tintColor: '#2390FB'} : {} }
+            /> 
+          }>
+          <Goal />
+        </TabNavigationItem>
+
+        <TabNavigationItem
+          id="settings"
+          renderIcon={(isSelected: boolean) =>
+            <Image source={require('../../images/ic-settings.png')} 
+              style={isSelected ? { tintColor: '#2390FB'} : {} }
+            /> 
+          }>
+          <Settings />
+        </TabNavigationItem>
+      </TabNavigation>
     )
   }
 }
@@ -44,6 +78,5 @@ class Home extends React.Component<Props, State> {
 export default connect(
   state => ({}),
   {
-    login: actions.user.login
   } 
 )(Home)

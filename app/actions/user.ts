@@ -2,7 +2,7 @@ import {AsyncStorage, Alert} from 'react-native'
 import RNAccountKit from 'react-native-facebook-account-kit'
 import {TOKEN_KEY} from '../constants'
 
-import {redirectToHome, redirectToLogin} from '../navigation/index'
+import {pushRoute} from '../navigator'
 
 interface UserAction {
   type: string,
@@ -15,7 +15,6 @@ export function login (): UserAction {
       // TODO: handle when there is no token
       if (token) {
         return set(TOKEN_KEY, JSON.stringify(token))
-          .then(redirectToHome)
       }
     })
 
@@ -27,7 +26,7 @@ export function login (): UserAction {
 
 export function logout (): UserAction {
   const logoutPromise = AsyncStorage.removeItem('auth_token')
-    .then(redirectToLogin)
+    .then(() => pushRoute('LOADING'))
 
   return {
     type: 'LOGIN',

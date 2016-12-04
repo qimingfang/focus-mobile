@@ -1,42 +1,60 @@
 import React, {Component} from 'react'
 import {
-  Text,
-  TouchableOpacity
+  AsyncStorage,
+  View,
+  Image,
+  TouchableOpacity,
+  Dimensions
 } from 'react-native'
-import {connect} from 'react-redux'
 
-import actions from '../actions/index'
-console.log(actions)
+import {Router} from '../navigator'
+import {connect} from 'react-redux'
+import {TOKEN_KEY} from '../constants'
+
+const {
+  Text,
+  theme
+} = require('../components')
+
+const {width, height} = Dimensions.get('window')
 
 interface Props {
-  navigator: any,
-  login: any,
+  navigator: any
 }
 
 interface State {
   
 }
 
-class Login extends React.Component<Props, State> {
-  static navigatorStyle = {
-    statusBarTextColorScheme: 'light',
-    navBarHidden: true
+class Loading extends React.Component<Props, State> {
+  componentWillMount () {
+    AsyncStorage.getItem(TOKEN_KEY).then(val => {
+      const initialScreen = val ? 'HOME' : 'LOGIN'
+      this.props.navigator.immediatelyResetStack([Router.getRoute(initialScreen)])
+    })
   }
 
   render () {
     return (
-      <TouchableOpacity style={{ flex: 1, justifyContent: 'center', alignSelf: 'center' }} onPress={() => {
-        this.props.login()
-      }}>
-        <Text>Login</Text>
-      </TouchableOpacity>
+      <View style={{ flex: 1, backgroundColor: theme.primaryColor }}>
+        <View style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width,
+          height,
+          alignItems: 'center',
+          justifyContent: 'center'
+         }}>
+          <Image
+            source={require('../../images/logo.png')} />
+            <Text style={{ marginTop: 16, fontSize: 48, color: theme.white }}>
+              Focus
+            </Text>
+        </View>
+      </View>
     )
   }
 }
 
-export default connect(
-  state => ({}),
-  {
-    login: actions.user.login
-  } 
-)(Login)
+export default Loading
