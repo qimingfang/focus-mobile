@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {
+  AsyncStorage,
   View,
   ScrollView,
   Dimensions,
@@ -9,9 +10,11 @@ import {
   KeyboardAvoidingView
 } from 'react-native'
 
+import moment from 'moment'
 import {connect} from 'react-redux'
 import PushNotification from 'react-native-push-notification'
 import actions from '../actions/index'
+import {GOAL_KEY} from '../constants'
 
 const {
   Text,
@@ -25,7 +28,10 @@ const {Keyboard} = require('react-native')
 const {height} = Dimensions.get('window')
 
 interface Props {
+  goal?: any
   fields?: any
+  update?: () => any
+  scheduleMorningNotification?: () => any
 }
 
 interface State {
@@ -53,14 +59,17 @@ const ReactionButton = (props: any) => {
 class Score extends React.Component<Props, State> {
   
   onRate (rating: string) {
+    this.props.scheduleMorningNotification()  
 
+    AsyncStorage.removeItem(GOAL_KEY)
+      .then(this.props.update)
   }
 
   render () {
     return (
       <View style={{ flex: 1, backgroundColor: theme.primaryColor, paddingHorizontal: 12 }}>
         <Container>
-          <HeaderBar>Finish the NPS document and share it with the team.</HeaderBar>
+          <HeaderBar>{this.props.goal}</HeaderBar>
           <Text style={{ color: theme.white, fontSize: 24 }}>
             So, how did you do?
           </Text>
@@ -103,6 +112,6 @@ class Score extends React.Component<Props, State> {
 export default connect(
   state => ({}),
   {
-    login: actions.user.login
+    scheduleMorningNotification: actions.user.scheduleMorningNotification
   } 
 )(Score)

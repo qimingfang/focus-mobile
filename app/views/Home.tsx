@@ -6,12 +6,14 @@ import {
   Image,
   TouchableOpacity
 } from 'react-native'
+import moment from 'moment'
 import {connect} from 'react-redux'
 
 import actions from '../actions/index'
 import Goal from './Goal'
 import Score from './Score'
 import Settings from './Settings'
+import Thanks from './Thanks'
 import {GOAL_KEY} from '../constants'
 
 const {
@@ -32,7 +34,8 @@ interface Props {
 }
 
 interface State {
-  goal: any
+  now?: Date
+  goal?: any
 }
 
 class Home extends React.Component<Props, State> {
@@ -40,12 +43,14 @@ class Home extends React.Component<Props, State> {
     super(props)
 
     this.state = {
+      now: new Date(),
       goal: null
     }
   }
 
   componentDidMount() {
     AppState.addEventListener('change', this._handleAppStateChange.bind(this));
+      this._updateStateFromStoredGoals.bind(this)()
   }
 
   componentWillUnmount() {
@@ -53,14 +58,33 @@ class Home extends React.Component<Props, State> {
   }
 
   _handleAppStateChange (appState: any) {
+    if (appState === 'active') {
+      this._updateStateFromStoredGoals.bind(this)()
+    }
+  }
+
+  _updateStateFromStoredGoals () {
     AsyncStorage.getItem(GOAL_KEY).then(val => {
-      if (val) {
-        this.setState({ goal: JSON.parse(val) })
-      }
+      this.setState({
+        now: new Date(),
+        goal: val ? JSON.parse(val).goal : null
+      })
     })
   }
 
   render () {
+    const currentTime = moment(this.state.now)
+    const currentHour = currentTime.hours()
+
+    console.log(currentHour)
+ 
+    const homeScreen = currentHour < 8 || currentHour > 20
+      // reporting
+      ? this.state.goal
+        ? <Score goal={this.state.goal} />
+        : <Thanks />
+      : <Goal />
+          
     return (
       <TabNavigation
         id="tab"
@@ -73,11 +97,7 @@ class Home extends React.Component<Props, State> {
               style={isSelected ? { tintColor: '#2390FB'} : {} }
             /> 
           }>
-
-          { this.state.goal
-            ? <Score goal={this.state.goal} />
-            : <Goal />
-          }
+          {homeScreen}
         </TabNavigationItem>
 
         <TabNavigationItem

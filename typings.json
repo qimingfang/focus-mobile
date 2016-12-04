@@ -1,5 +1,6 @@
 {
   "globalDependencies": {
+    "moment": "registry:dt/moment#2.11.1+20161010105546",
     "react": "registry:dt/react#0.14.0+20161124131900",
     "react-native": "registry:dt/react-native#0.34.0+20161025173646",
     "react-native-facebook-account-kit": "file:types/react-native-facebook-account-kit.d.ts",

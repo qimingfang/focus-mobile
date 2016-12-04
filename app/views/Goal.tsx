@@ -46,12 +46,21 @@ class Goal extends React.Component<Props, State> {
   scheduleNotification (goal: string) {
     PushNotification.cancelLocalNotifications({ id: 'MY_NOTIFICATION' })
     PushNotification.cancelAllLocalNotifications()
-    
-    const newDate = new Date(Date.now() + (10 * 1000))
+
+    const now = moment()
+
+    // schedule for 8pm today
+    const reminderTime = now.set({
+      hour: 20,
+      minute: 0,
+      second: 0,
+      millisecond: 0
+    })
+
     this._set(GOAL_KEY, JSON.stringify({ goal })).then(() => {
       PushNotification.localNotificationSchedule({
         message: "How did you do on your goals today?",
-        date: newDate,
+        date: reminderTime.toDate(),
         userInfo: { id: 'MY_NOTIFICATION' }
       })
     })
