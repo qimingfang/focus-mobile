@@ -2,23 +2,27 @@
 
 import React, { Component } from 'react'
 import {
-    StyleSheet,
-    Text,
-    View,
-    NavigationExperimental
+  AsyncStorage,
+  StyleSheet,
+  Text,
+  View,
+  NavigationExperimental
 } from 'react-native'
 
 import RNAccountKit, {
   Color
 } from 'react-native-facebook-account-kit'
 
+import {TOKEN_KEY} from './constants'
 import PushNotification from 'react-native-push-notification'
 import { Provider, connect } from 'react-redux'
 
+import Login from './views/Login'
 import Home from './views/Home'
-import Schedule from './views/Schedule'
+import Settings from './views/Settings'
 
 import store from './store'
+import {redirectToHome, redirectToLogin} from './navigation/index'
 
 const {
   Button,
@@ -100,19 +104,14 @@ interface State {
 
 }
 
-Navigation.registerComponent('HOME', () => Home, store, Provider);
-Navigation.registerComponent('SCHEDULE', () => Schedule, store, Provider);
+Navigation.registerComponent('HOME', () => Home, store, Provider)
+Navigation.registerComponent('SETTINGS', () => Settings, store, Provider)
+Navigation.registerComponent('LOGIN', () => Login, store, Provider)
 
-Navigation.startSingleScreenApp({
- screen: {
-   screen: 'HOME',
-   title: 'Navigation',
-   navigatorStyle: {
-     navBarBackgroundColor: '#4dbce9',
-     navBarTextColor: '#ffff00',
-     navBarSubtitleTextColor: '#ff0000',
-     navBarButtonColor: '#ffffff',
-     statusBarTextColorScheme: 'light'
-   }
- }
+AsyncStorage.getItem(TOKEN_KEY).then(val => {
+  if (!val) {
+    redirectToLogin()
+  } else {
+    redirectToHome()
+  }
 })

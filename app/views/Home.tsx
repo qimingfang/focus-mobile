@@ -1,12 +1,19 @@
 import React, {Component} from 'react'
 import {
-  Text,
+  View,
   TouchableOpacity
 } from 'react-native'
 import {connect} from 'react-redux'
 
 import actions from '../actions/index'
-console.log(actions)
+
+const {
+  Text,
+  HeaderBar,
+  Container,
+  ListItem,
+  theme
+} = require('../components')
 
 interface Props {
   navigator: any,
@@ -17,14 +24,19 @@ interface State {
   
 }
 
-class App extends React.Component<Props, State> {
+class Home extends React.Component<Props, State> {
+  static navigatorStyle = {
+    navBarHidden: true,
+    statusBarTextColorScheme: 'light'
+  }
+
   render () {
     return (
-      <TouchableOpacity style={{ flex: 1, justifyContent: 'center', alignSelf: 'center' }} onPress={() => {
-        this.props.login()
-      }}>
-        <Text>Home Screen</Text>
-      </TouchableOpacity>
+      <View style={{ flex: 1, backgroundColor: theme.primaryColor }}>
+        <Container>
+          <HeaderBar>What is your goal for today?</HeaderBar>
+        </Container>
+       </View>
     )
   }
 }
@@ -34,4 +46,4 @@ export default connect(
   {
     login: actions.user.login
   } 
-)(App)
+)(Home)

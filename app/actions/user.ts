@@ -1,24 +1,37 @@
 import {AsyncStorage, Alert} from 'react-native'
 import RNAccountKit from 'react-native-facebook-account-kit'
+import {TOKEN_KEY} from '../constants'
+
+import {redirectToHome, redirectToLogin} from '../navigation/index'
 
 interface UserAction {
   type: string,
   payload?: any
 }
 
-export function login(): UserAction {
+export function login (): UserAction {
   const accountKitLogin = RNAccountKit.loginWithPhone()
     .then((token) => {
-      if (!token) {
-        Alert.alert('Invalid Login', 'Please try logging in again')
-      } else {
-        return set('auth_token', JSON.stringify(token))
+      // TODO: handle when there is no token
+      if (token) {
+        return set(TOKEN_KEY, JSON.stringify(token))
+          .then(redirectToHome)
       }
     })
 
   return {
     type: 'LOGIN',
     payload: accountKitLogin
+  }
+}
+
+export function logout (): UserAction {
+  const logoutPromise = AsyncStorage.removeItem('auth_token')
+    .then(redirectToLogin)
+
+  return {
+    type: 'LOGIN',
+    payload: logoutPromise
   }
 }
 
