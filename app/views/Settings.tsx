@@ -29,15 +29,13 @@ class Settings extends React.Component<Props, State> {
       <View style={{ flex: 1, backgroundColor: theme.primaryColor, paddingHorizontal: 12 }}>
         <Container>
           <HeaderBar>Settings</HeaderBar>
-          <View style={{ flex: 1 }}>
-            <Text style={{ color: theme.white }}>
-              Not much going on here (yet). If you have any feedback, please send it to qf26@cornell.edu.
-            </Text>
-           </View>
+          <Text style={{ flex: 1, color: theme.white }}>
+            Not much going on here (yet). If you have any feedback, please send it to qf26@cornell.edu.
+          </Text>
           <TouchableOpacity
             onPress={this.props.logout}
             style={{ alignItems: 'center', justifyContent: 'center', padding: 24 }}>
-            <Text style={{ fontWeight: 'bold', color: theme.white }}>Log Out</Text>
+            <Text style={{ fontSize: 20, color: theme.white }}>Log Out</Text>
           </TouchableOpacity>
         </Container>
        </View>

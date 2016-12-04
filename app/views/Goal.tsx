@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {
+  AsyncStorage,
   View,
   ScrollView,
   Dimensions,
@@ -10,7 +11,9 @@ import {
 } from 'react-native'
 
 import {reduxForm} from 'redux-form'
+import PushNotification from 'react-native-push-notification'
 import actions from '../actions/index'
+import {GOAL_KEY} from '../constants'
 
 const {
   Text,
@@ -32,15 +35,35 @@ interface State {
 }
 
 class Goal extends React.Component<Props, State> {
-  keyboardDidShowListener: any
-  keyboardDidHideListener: any
-
   constructor (props: any) {
     super(props)
 
     this.state = {
       inputHeight: 40
     }
+  }
+
+  scheduleNotification (goal: string) {
+    PushNotification.cancelLocalNotifications({ id: 'MY_NOTIFICATION' })
+    PushNotification.cancelAllLocalNotifications()
+    
+    const newDate = new Date(Date.now() + (10 * 1000))
+    this._set(GOAL_KEY, JSON.stringify({ goal })).then(() => {
+      PushNotification.localNotificationSchedule({
+        message: "How did you do on your goals today?",
+        date: newDate,
+        userInfo: { id: 'MY_NOTIFICATION' }
+      })
+    })
+  }
+
+  _set (key: string, value: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      return AsyncStorage.setItem(key, value, (err) => {
+        if (err) return reject(err)
+        return resolve()
+      })
+    })
   }
 
   render () {
@@ -87,7 +110,7 @@ class Goal extends React.Component<Props, State> {
               backgroundColor: theme.primaryDark,
               marginBottom: 16
             }]}
-            onPress={() => {}}
+            onPress={() => { this.scheduleNotification(goal.value) }}
           >
             <Text style={{
               color: theme.white,

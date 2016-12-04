@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import {
+  AppState,
+  AsyncStorage,
   View,
   Image,
   TouchableOpacity
@@ -8,7 +10,9 @@ import {connect} from 'react-redux'
 
 import actions from '../actions/index'
 import Goal from './Goal'
+import Score from './Score'
 import Settings from './Settings'
+import {GOAL_KEY} from '../constants'
 
 const {
   TabNavigation,
@@ -28,21 +32,32 @@ interface Props {
 }
 
 interface State {
-  selectedTab: string
+  goal: any
 }
 
 class Home extends React.Component<Props, State> {
-  static navigatorStyle = {
-    navBarHidden: true,
-    statusBarTextColorScheme: 'light'
-  }
-
   constructor (props: any) {
     super(props)
 
     this.state = {
-      selectedTab: 'HOME'
+      goal: null
     }
+  }
+
+  componentDidMount() {
+    AppState.addEventListener('change', this._handleAppStateChange.bind(this));
+  }
+
+  componentWillUnmount() {
+    AppState.removeEventListener('change', this._handleAppStateChange.bind(this));
+  }
+
+  _handleAppStateChange (appState: any) {
+    AsyncStorage.getItem(GOAL_KEY).then(val => {
+      if (val) {
+        this.setState({ goal: JSON.parse(val) })
+      }
+    })
   }
 
   render () {
@@ -58,7 +73,11 @@ class Home extends React.Component<Props, State> {
               style={isSelected ? { tintColor: '#2390FB'} : {} }
             /> 
           }>
-          <Goal />
+
+          { this.state.goal
+            ? <Score goal={this.state.goal} />
+            : <Goal />
+          }
         </TabNavigationItem>
 
         <TabNavigationItem
