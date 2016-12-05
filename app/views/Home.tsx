@@ -72,8 +72,6 @@ class Home extends React.Component<Props, State> {
     const currentTime = moment(this.state.now)
     const currentHour = currentTime.hours()
      
-    console.log(currentHour)
-
     const homeScreen = currentHour < 8 || currentHour >= 20
       // reporting
       ? this.props.goal
