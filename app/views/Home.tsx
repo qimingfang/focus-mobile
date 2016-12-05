@@ -31,11 +31,11 @@ const {
 
 interface Props {
   navigator: any,
+  goal?: any
 }
 
 interface State {
   now?: Date
-  goal?: any
 }
 
 class Home extends React.Component<Props, State> {
@@ -43,8 +43,7 @@ class Home extends React.Component<Props, State> {
     super(props)
 
     this.state = {
-      now: new Date(),
-      goal: null
+      now: new Date()
     }
   }
 
@@ -64,24 +63,21 @@ class Home extends React.Component<Props, State> {
   }
 
   _updateStateFromStoredGoals () {
-    AsyncStorage.getItem(GOAL_KEY).then(val => {
-      this.setState({
-        now: new Date(),
-        goal: val ? JSON.parse(val).goal : null
-      })
+    this.setState({
+      now: new Date()
     })
   }
 
   render () {
     const currentTime = moment(this.state.now)
     const currentHour = currentTime.hours()
-
+     
     console.log(currentHour)
- 
-    const homeScreen = currentHour < 8 || currentHour > 20
+
+    const homeScreen = currentHour < 8 || currentHour >= 20
       // reporting
-      ? this.state.goal
-        ? <Score goal={this.state.goal} />
+      ? this.props.goal
+        ? <Score />
         : <Thanks />
       : <Goal />
           
@@ -115,7 +111,9 @@ class Home extends React.Component<Props, State> {
 }
 
 export default connect(
-  state => ({}),
+  state => ({
+    goal: state.user.goal
+  }),
   {
   } 
 )(Home)

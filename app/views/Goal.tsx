@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import {
-  AsyncStorage,
   View,
   ScrollView,
   Dimensions,
@@ -88,7 +87,13 @@ class Goal extends React.Component<Props, State> {
               backgroundColor: theme.primaryDark,
               marginBottom: 16
             }]}
-            onPress={() => { this.props.scheduleAfternoonNotfication(goal.value) }}
+            onPress={() => { 
+              if (goal.value.length === 0) {
+                alert('Please set a goal first!')
+              } else {
+                this.props.scheduleAfternoonNotfication(goal.value)
+              }
+            }}
           >
             <Text style={{
               color: theme.white,
@@ -106,7 +111,11 @@ export default reduxForm(
     form: 'Goal',
     fields: ['goal']
   }, 
-  state => ({}),
+  state => ({
+    initialValues: {
+      goal: state.user.goal
+    }
+  }),
   {
     scheduleAfternoonNotfication: actions.user.scheduleAfternoonNotfication
   } 

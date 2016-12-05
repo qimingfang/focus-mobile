@@ -110,7 +110,9 @@ class Score extends React.Component<Props, State> {
 }
 
 export default connect(
-  state => ({}),
+  state => ({
+    goal: state.user.goal
+  }),
   {
     scheduleMorningNotification: actions.user.scheduleMorningNotification
   } 

@@ -66,7 +66,7 @@ export function scheduleMorningNotification (): UserAction {
   )
 
   return {
-    type: 'SCHEDULE_MORNING_NOTIFICATION'
+    type: 'CLEAR_GOAL'
   }
 }
 
@@ -84,22 +84,26 @@ export function scheduleAfternoonNotfication (goal: string): UserAction {
     millisecond: 0
   })
 
-  const promise = set(GOAL_KEY, JSON.stringify({ goal })).then(() => {
-    PushNotification.localNotificationSchedule({
-      message: "How did you do on your goals today?",
-      date: reminderTime.toDate(),
-      userInfo: { id: 'MY_NOTIFICATION' }
-    })
-
-    Alert.alert(
-      'Goal is set!',
-      `Check back again ${reminderTime.fromNow()} and score how you did.`,
-    )
+  PushNotification.localNotificationSchedule({
+    message: "How did you do on your goals today?",
+    date: reminderTime.toDate(),
+    userInfo: { id: 'MY_NOTIFICATION' }
   })
 
+  PushNotification.localNotificationSchedule({
+    message: "How did you do on your goals today?",
+    date: reminderTime.toDate(),
+    userInfo: { id: 'MY_NOTIFICATION' }
+  })
+
+  Alert.alert(
+    'Goal is set!',
+    `Check back again ${reminderTime.fromNow()} and score how you did.`,
+  )
+
   return {
-    type: 'SCHEDULE_AFTERNOON_NOTIFICATION',
-    payload: promise
+    type: 'SET_GOAL',
+    payload: goal
   } 
 }
 
