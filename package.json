@@ -8,7 +8,8 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
     "prebuild": "rm -rf build",
-    "build": "tsc"
+    "build": "tsc",
+    "watch": "tsc --watch"
   },
   "dependencies": {
     "@exponent/ex-navigation": "^2.1.5",
