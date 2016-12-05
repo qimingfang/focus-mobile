@@ -5,6 +5,7 @@ artifacts
 
 # OSX
 #
+Pods
 .DS_Store
 
 # Xcode
