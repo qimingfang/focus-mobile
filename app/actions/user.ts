@@ -6,6 +6,7 @@ import PushNotification from 'react-native-push-notification'
 import store from '../store'
 import {GOAL_KEY, TOKEN_KEY} from '../constants'
 import {pushRoute} from '../navigator'
+import {showPopup} from './global'
 
 interface UserAction {
   type: string,
@@ -69,10 +70,10 @@ export function scheduleMorningNotification (): UserAction {
     userInfo: { id: 'MY_NOTIFICATION' }
   })
 
-  Alert.alert(
-    'All set for today',
-    `Nudge you again ${reminderTime.fromNow()}. Have a great evening!`,
-  )
+  store.dispatch(showPopup(
+    'All set for today!',
+    `Nudge you again ${reminderTime.fromNow()}. Have a great evening.`
+  ))
 
   return {
     type: 'CLEAR_GOAL'
@@ -99,16 +100,10 @@ export function scheduleAfternoonNotfication (goal: string): UserAction {
     userInfo: { id: 'MY_NOTIFICATION' }
   })
 
-  PushNotification.localNotificationSchedule({
-    message: "How did you do on your goals today?",
-    date: reminderTime.toDate(),
-    userInfo: { id: 'MY_NOTIFICATION' }
-  })
-
-  Alert.alert(
+  store.dispatch(showPopup(
     'Goal is set!',
     `Check back again ${reminderTime.fromNow()} and score how you did.`,
-  )
+  ))
 
   return {
     type: 'SET_GOAL',

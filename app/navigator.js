@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Text } from 'react-native'
 
 import store from './store'
 import { Provider } from 'react-redux'
@@ -6,6 +7,8 @@ import { Provider } from 'react-redux'
 import Home from './views/Home'
 import Loading from './views/Loading'
 import Login from './views/Login'
+
+import Popup from './overlays/Popup'
 
 import {
   createRouter,
@@ -53,6 +56,7 @@ export default class extends Component {
           <StackNavigation 
             navigatorUID="main"
             initialRoute={Router.getRoute('LOADING')} />
+          <Popup />
         </NavigationProvider>
       </Provider>
     )

@@ -1,4 +1,5 @@
 import * as user from './user'
+import * as global from './global'
 
 function track (eventType, props = {}) {
   return {
@@ -12,5 +13,6 @@ function track (eventType, props = {}) {
 
 export default {
   track,
+  global,
   user
 }

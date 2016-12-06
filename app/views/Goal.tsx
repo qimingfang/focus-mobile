@@ -26,7 +26,7 @@ const {Keyboard} = require('react-native')
 const {height} = Dimensions.get('window')
 
 interface Props {
-  fields?: any
+  fields?: any,
   scheduleAfternoonNotfication?: (goal: string) => any
 }
 
@@ -90,11 +90,7 @@ class Goal extends React.Component<Props, State> {
                 marginBottom: 16
               }]}
               onPress={() => {
-                if (goal.value.length === 0) {
-                  alert('Please set a goal first!')
-                } else {
-                  this.props.scheduleAfternoonNotfication(goal.value)
-                }
+                this.props.scheduleAfternoonNotfication(goal.value)
               }}
             >
               <Text style={{

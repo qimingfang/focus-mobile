@@ -46,7 +46,7 @@ RNAccountKit.configure({
 })
 
 function onNotification(notification: any) {
-  alert(notification.getMessage())
+  console.log(notification.getMessage())
 }
 
 PushNotificationIOS.addEventListener('localNotification', onNotification)
