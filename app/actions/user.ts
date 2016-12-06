@@ -3,6 +3,7 @@ import moment from 'moment'
 import RNAccountKit from 'react-native-facebook-account-kit'
 import PushNotification from 'react-native-push-notification'
 
+import store from '../store'
 import {GOAL_KEY, TOKEN_KEY} from '../constants'
 import {pushRoute} from '../navigator'
 
@@ -11,11 +12,19 @@ interface UserAction {
   payload?: any
 }
 
+export function resume (accountKitResult: any): UserAction {
+  return {
+    type: 'RESUME_SESSION',
+    payload: accountKitResult
+  }
+}
+
 export function login (): UserAction {
   const accountKitLogin = RNAccountKit.loginWithPhone()
     .then((token) => {
       // TODO: handle when there is no token
       if (token) {
+        store.dispatch(resume(token))
         return set(TOKEN_KEY, JSON.stringify(token))
           .then(() => pushRoute('LOADING'))
       }
@@ -32,7 +41,7 @@ export function logout (): UserAction {
     .then(() => pushRoute('LOADING'))
 
   return {
-    type: 'LOGIN',
+    type: 'LOGOUT',
     payload: logoutPromise
   }
 }
@@ -62,7 +71,7 @@ export function scheduleMorningNotification (): UserAction {
 
   Alert.alert(
     'All set for today',
-    `Nudge you again ${reminderTime.fromNow()}. Have a great day!`,
+    `Nudge you again ${reminderTime.fromNow()}. Have a great evening!`,
   )
 
   return {

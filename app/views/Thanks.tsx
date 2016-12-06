@@ -20,6 +20,7 @@ const {
 const {width, height} = Dimensions.get('window')
 
 interface Props {
+  track?: (eventName: string) => void
   scheduleMorningNotification?: () => void
 }
 
@@ -42,7 +43,10 @@ class Thanks extends React.Component<Props, State> {
         </Text>
 
         <TouchableOpacity
-            onPress={this.props.scheduleMorningNotification}
+            onPress={() => {
+              this.props.track('Press: Remind me tomorrow')
+              this.props.scheduleMorningNotification()
+            }}
             style={{ marginTop: 16 }}
           >
             <Text style={{
@@ -61,6 +65,7 @@ class Thanks extends React.Component<Props, State> {
 export default connect(
   state => ({}),
   {
-    scheduleMorningNotification: actions.user.scheduleMorningNotification
+    scheduleMorningNotification: actions.user.scheduleMorningNotification,
+    track: actions.track
   }
 )(Thanks)

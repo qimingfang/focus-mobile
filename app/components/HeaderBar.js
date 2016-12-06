@@ -6,7 +6,7 @@ const {width} = Dimensions.get('window')
 
 export default function render (props) {
   return (
-    <View style={{ paddingTop: 12 }}>
+    <View style={{ paddingTop: 12, marginBottom: 16 }}>
       <Text style={{
         color: props.titleColor || theme.white,
         fontSize: 24,
@@ -16,12 +16,15 @@ export default function render (props) {
         {props.children}
       </Text>
 
-      <View style={{
-        marginVertical: 16,
-        height: 3,
-        width: width / 4,
-        backgroundColor: '#0F5834'
-      }} />
+      { props.showDivider
+        ? <View style={{
+          marginTop: 16,
+          height: 3,
+          width: width / 4,
+          backgroundColor: '#0F5834'
+        }} />
+        : null
+      }
     </View>
   )
 }

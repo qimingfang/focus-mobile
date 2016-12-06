@@ -7,6 +7,7 @@ import {
   Dimensions
 } from 'react-native'
 
+import actions from '../actions/index'
 import {Router} from '../navigator'
 import {connect} from 'react-redux'
 import {TOKEN_KEY} from '../constants'
@@ -19,6 +20,7 @@ const {
 const {width, height} = Dimensions.get('window')
 
 interface Props {
+  resume?: (accountKitResult: any) => void
   navigator: any
 }
 
@@ -30,6 +32,12 @@ class Loading extends React.Component<Props, State> {
   componentWillMount () {
     AsyncStorage.getItem(TOKEN_KEY).then(val => {
       const initialScreen = val ? 'HOME' : 'LOGIN'
+
+      if (val) {
+        const accountKitResult = JSON.parse(val)
+        this.props.resume(accountKitResult)
+      }
+
       this.props.navigator.immediatelyResetStack([Router.getRoute(initialScreen)])
     })
   }
@@ -57,4 +65,9 @@ class Loading extends React.Component<Props, State> {
   }
 }
 
-export default Loading
+export default connect(
+  state => ({}),
+  {
+    resume: actions.user.resume
+  } 
+)(Loading)

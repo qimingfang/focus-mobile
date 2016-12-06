@@ -57,15 +57,19 @@ class Goal extends React.Component<Props, State> {
             scrollEnabled={false}
             style={{
               flex: 1,
+              marginLeft: 16,
+              marginBottom: 8
             }}>
               <TextInput
                 multiline
                 style={{
+                  borderLeftWidth: 3,
+                  borderColor: theme.primaryLight,
+                  paddingHorizontal: 20,
+                  paddingVertical: 15,
                   fontSize: 20,
-                  paddingVertical: 10,
                   height: this.state.inputHeight,
-                  color: theme.white,
-                  borderWidth: 0
+                  color: theme.white
                 }}
                 onSubmitEditing={Keyboard.dismiss}
                 placeholder='Type goal ...'
@@ -76,34 +80,44 @@ class Goal extends React.Component<Props, State> {
                 }}
                 {...goal} 
               />
+
+              <TouchableOpacity
+              style={[{
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: 13,
+                padding: 12,
+                marginBottom: 16
+              }]}
+              onPress={() => {
+                if (goal.value.length === 0) {
+                  alert('Please set a goal first!')
+                } else {
+                  this.props.scheduleAfternoonNotfication(goal.value)
+                }
+              }}
+            >
+              <Text style={{
+                fontWeight: 'bold',
+                color: goal.dirty && goal.valid ? theme.white : theme.primaryLight,
+                fontSize: 20
+              }}>Set Goal</Text>
+            </TouchableOpacity>
           </ScrollView>
-          <TouchableOpacity
-            style={[{
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderRadius: 13,
-              borderWidth: 0.5,
-              padding: 12,
-              backgroundColor: theme.primaryDark,
-              marginBottom: 16
-            }]}
-            onPress={() => { 
-              if (goal.value.length === 0) {
-                alert('Please set a goal first!')
-              } else {
-                this.props.scheduleAfternoonNotfication(goal.value)
-              }
-            }}
-          >
-            <Text style={{
-              color: theme.white,
-              fontSize: 20
-            }}>Set Goal</Text>
-          </TouchableOpacity>
         </Container>
        </View>
     )
   }
+}
+
+function validate ({goal}: any) {
+  const errors: any = {}
+
+  if (!goal) {
+    errors.goal = 'Required'
+  }
+
+  return errors
 }
 
 export default reduxForm(

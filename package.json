@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@exponent/ex-navigation": "^2.1.5",
+    "amplitude": "^3.0.0",
     "babel-preset-react-native-stage-0": "^1.0.1",
     "moment": "^2.17.1",
     "react": "15.3.2",
