@@ -8,9 +8,4 @@ target 'focus' do
   # Pods for focus
   pod 'AccountKit'
 
-  target 'focusTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
 end
