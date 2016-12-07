@@ -82,24 +82,28 @@ class Goal extends React.Component<Props, State> {
                 {...goal} 
               />
 
-              <TouchableOpacity
-              style={[{
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: 13,
-                padding: 12,
-                marginBottom: 16
-              }]}
-              onPress={() => {
-                this.props.scheduleAfternoonNotfication(goal.value)
-              }}
-            >
-              <Text style={{
-                fontWeight: 'bold',
-                color: goal.dirty && goal.valid ? theme.white : theme.primaryLight,
-                fontSize: 20
-              }}>Set Goal</Text>
-            </TouchableOpacity>
+              {
+                goal.dirty && goal.valid
+                  ? <TouchableOpacity
+                    style={[{
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      borderRadius: 13,
+                      padding: 12,
+                      marginBottom: 16
+                    }]}
+                    onPress={() => {
+                      this.props.scheduleAfternoonNotfication(goal.value)
+                    }}
+                  >
+                    <Text style={{
+                      fontWeight: 'bold',
+                      color: theme.white,
+                      fontSize: 20
+                    }}>Set Goal</Text>
+                  </TouchableOpacity>
+                  : null
+              }
           </ScrollView>
         </Container>
        </View>
