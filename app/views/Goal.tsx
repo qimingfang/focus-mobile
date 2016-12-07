@@ -61,6 +61,7 @@ class Goal extends React.Component<Props, State> {
               marginBottom: 8
             }}>
               <TextInput
+                autoFocus
                 multiline
                 style={{
                   borderLeftWidth: 3,
