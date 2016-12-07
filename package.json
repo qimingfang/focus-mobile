@@ -21,13 +21,10 @@
     "react-native": "0.37.0",
     "react-native-facebook-account-kit": "^0.5.2",
     "react-native-push-notification": "^2.2.1",
-    "react-native-tab-navigator": "^0.3.3",
     "react-redux": "^4.4.6",
     "redux": "^3.6.0",
     "redux-form": "^5.3.3",
     "redux-persist": "^4.0.0-beta1",
-    "seamless-immutable": "^6.3.0",
-    "typescript": "^2.0.10",
     "whatwg-fetch": "^2.0.1"
   },
   "jest": {
